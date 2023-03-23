@@ -1,19 +1,17 @@
 import express from "express";
-import { prisma } from "./prismaClient";
+import {companyHandler} from "./handlers/company"
+import {transactionsHandler} from "./handlers/transactions"
+import {activateCardHandler} from "./handlers/activateCard";
+
 
 export const app = express();
 
-app.use("/company", async (req, res) => {
-  const companyId = parseInt(req.headers.authorization);
-  try {
-    const result = await prisma.company.findUnique({
-      where: {
-        id: companyId,
-      },
-    });
+// In practice, the company id would be parsed from authentication context
+const COMPANY_ID = 1
 
-    res.status(200).send({ data: result });
-  } catch (e) {
-    res.status(500).end();
-  }
-});
+
+app.get("/api/company", (req, res) => companyHandler(req, res, COMPANY_ID));
+
+app.get("/api/transactions", (req, res) => transactionsHandler(req, res, COMPANY_ID));
+
+app.post("/api/activate-card", (req, res) => activateCardHandler(req, res, COMPANY_ID))
