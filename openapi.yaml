@@ -3,7 +3,7 @@ info:
   title: Backend for Qred
   version: 1.0.11
 servers:
-  - url: http://localhost:8080/api
+  - url: http://localhost:3010/api
 tags:
   - name: company
     description: Operations about company
@@ -49,7 +49,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TransactionsResponse'
-  /activated-card:
+  /activate-card:
     post:
       tags:
         - activation
@@ -82,13 +82,13 @@ components:
         id:
           type: integer
           example: 10
-        credit_limit:
+        creditLimit:
           type: integer
           example: 10000
         balance:
           type: integer
           example: 5457
-        card_url:
+        cardUrl:
           type: string
           format: uri
           example: "http://example.com"
@@ -111,7 +111,7 @@ components:
           description: "Amount in cents"
           example: 3550
           format: currency
-        transaction_date:
+        transactionDate:
           type: string
           format: date-time
           example: "2023-03-20T09:12:28Z"
@@ -121,7 +121,7 @@ components:
         count:
           type: integer
           example: 50
-        transactions:
+        data:
           type: array
           items:
             $ref: '#/components/schemas/Transaction'
